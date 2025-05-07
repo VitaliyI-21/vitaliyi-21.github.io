@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CssLearner — Завдання 2</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <button class="menu-button" onclick="toggleMenu()">☰</button>
+    <div class="logo-container" onclick="location.href='../Main.html'">
+      <img src="../Logo.png" alt="CssLearner Logo" class="logo">
+      <span class="logo-text">CssLearner</span>
+    </div>
+  </header>
+
+  <div class="menu-panel" id="taskMenu">
+    <div style="color: #5cb85c; font-weight: bold; padding: 8px 10px 2px;">Прості завдання</div>
+    <div style="height: 2px; background-color: #5cb85c; margin: 2px 10px 8px;"></div>
+    <a href="../Q1/Q1.html">Задача 1: Привіт, світ!</a>
+    <a href="../Q2/Q2.html">Задача 2: Абзац</a>
+    <a href="../Q3/Q3.html">Задача 3: Кольоровий текст</a>
+    <a href="../Q4/Q4.html">Задача 4: Список</a>
+    <a href="../Q5/Q5.html">Задача 5: Кнопка</a>
+    <a href="../Q6/Q6.html">Задача 6: Посилання</a>
+    <a href="../Q7/Q7.html">Задача 7: Зміна фону</a>
+    <a href="../Q8/Q8.html">Задача 8: Розділення сторінки</a>
+    <a href="../Q9/Q9.html">Задача 9: Коментар</a>
+    <a href="../Q10/Q10.html">Задача 10: Шрифт</a>
+
+    <div style="color: #f0ad4e; font-weight: bold; padding: 12px 10px 2px;">Середні завдання</div>
+    <div style="height: 2px; background-color: #f0ad4e; margin: 2px 10px 8px;"></div>
+    <a href="../Q11/Q11.html">Задача 11: Абзац з класом Note</a>
+    <a href="../Q12/Q12.html">Задача 12: Клас "Box"</a>
+    <a href="../Q13/Q13.html">Задача 13: Клас "Task"</a>
+    <a href="../Q14/Q14.html">Задача 14: Кольорова кнопка</a>
+    <a href="../Q15/Q15.html">Задача 15: Вирівнювання тексту</a>
+    <a href="../Q16/Q16.html">Задача 16: Рамка об'єкта</a>
+    <a href="../Q17/Q17.html">Задача 17: Динамічна зміна кольору</a>
+    <a href="Q18.html">Задача 18: Закруглення</a>
+    <a href="../Q19/Q19.html">Задача 19: Внутрішній відступ</a>
+    <a href="../Q20/Q20.html">Задача 20: Спільний стиль</a>
+
+    <div style="color: #d9534f; font-weight: bold; padding: 12px 10px 2px;">Складні завдання</div>
+    <div style="height: 2px; background-color: #d9534f; margin: 2px 10px 8px;"></div>
+    <a href="../Q21/Q21.html">Задача 21: Контейнер Flexbox</a>
+    <a href="../Q22/Q22.html">Задача 22: Селектор</a>
+    <a href="../Q23/Q23.html">Задача 23: Відсоткові розміри</a>
+    <a href="../Q24/Q24.html">Задача 24: Приховані блоки</a>
+    <a href="../Q25/Q25.html">Задача 25: Додавання тіней</a>
+    <a href="../Q26/Q26.html">Задача 26: Верхні та нижні відступи</a>
+    <a href="../Q27/Q27.html">Задача 27: Псевдокласи</a>
+    <a href="../Q28/Q28.html">Задача 28: Псевдокласи</a>
+    <a href="../Q29/Q29.html">Задача 29: Зміна кольору фону при натисканні</a>
+    <a href="../Q30/Q30.html">Задача 30: Анімація</a>
+  </div>
+
+  <div class="workspace">
+    <div class="editor-panel">
+      <div class="tabs">
+        <button class="tab active" onclick="switchTab('html')">HTML</button>
+        <button class="tab" onclick="switchTab('css')">CSS</button>
+      </div>
+      <textarea id="html-code"></textarea>
+      <textarea id="css-code" style="display: none;"></textarea>
+      <div class="controls">
+        <button id="run">Запустити</button>
+        <button id="hint">Підказка</button>
+        <button id="check">Перевірити</button>
+      </div>
+      <div id="result"></div>
+    </div>
+
+    <div class="preview-panel">
+      <iframe id="preview"></iframe>
+    </div>
+
+    <div class="task-panel">
+      Завдання 18: Створи <code>&lt;div class="rounded"&gt;</code> і задай йому закруглені кути радіусом 10px
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
