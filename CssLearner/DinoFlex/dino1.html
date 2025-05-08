@@ -3,15 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CssLearner — Завдання 2</title>
+  <title>Dino Flexbox</title>
   <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header>
+  <header class="main-header">
     <button class="menu-button" onclick="toggleMenu()">☰</button>
     <div class="logo-container" onclick="location.href='../Main.html'">
-      <img src="../Logo.png" alt="CssLearner Logo" class="logo">
+      <img src="../Logo.png" alt="CssLearner Logo" class="logo" />
       <span class="logo-text">CssLearner</span>
     </div>
   </header>
@@ -54,35 +53,38 @@
     <a href="../Q27/Q27.html">Задача 27: Псевдокласи</a>
     <a href="../Q28/Q28.html">Задача 28: Псевдокласи</a>
     <a href="../Q29/Q29.html">Задача 29: Зміна кольору фону при натисканні</a>
-    <a href="Q30.html">Задача 30: Анімація</a>
-    
+    <a href="../Q30/Q30.html">Задача 30: Анімація</a>
+
     <div style="color: #4f6fd9; font-weight: bold; padding: 12px 10px 2px;">Інтерактивні завдання</div>
     <div style="height: 2px; background-color: #4f6fd9; margin: 2px 10px 8px;"></div>
-    <a href="../DinoFlex/dino1.html">Hungry Dino №1</a>
+    <a href="dino1.html">Hungry Dino №1</a>
+
   </div>
 
-  <div class="workspace">
-    <div class="editor-panel">
-      <div class="tabs">
-        <button class="tab active" onclick="switchTab('html')">HTML</button>
-        <button class="tab" onclick="switchTab('css')">CSS</button>
+  <div class="page-content">
+    <div class="left-panel">
+      <div>
+        <div class="instructions">
+          <p>Вітаємо у <strong>Hungry Dino</strong>! Твоя мета — допомогти динозавру дістатись шніцеля, використовуючи CSS.</p>
+          <ul>
+            <li><strong>top</strong>, <strong>left</strong>, <strong>position</strong> — допоможуть пересунути динозавра.</li>
+            <li>Використай <strong>calc(% - px)</strong> для точного позиціонування.</li>
+          </ul>
+          <p>Перемістіть динозавра до його улюблених ласощів:</p>
+        </div>
+        <div class="editor-box">
+          <div><code>#playground &#123;</code></div>
+          <textarea class="code-input" id="code" placeholder="position: absolute;"></textarea>
+          <div><code>&#125;</code></div>
+        </div>
       </div>
-      <textarea id="html-code"></textarea>
-      <textarea id="css-code" style="display: none;"></textarea>
-      <div class="controls">
-        <button id="run">Запустити</button>
-        <button id="hint">Підказка</button>
-        <button id="check">Перевірити</button>
-      </div>
-      <div id="result"></div>
     </div>
 
-    <div class="preview-panel">
-      <iframe id="preview"></iframe>
-    </div>
-
-    <div class="task-panel">
-      Завдання 30: Створи блок з класом <code>animated</code>, який при наведенні змінює розмір із плавною анімацією за допомогою <code>transition: all 0.3s ease</code>
+    <div class="right-panel">
+      <div class="playground" id="playground">
+        <div class="dino"></div>
+        <div class="food"></div>
+      </div>
     </div>
   </div>
 
