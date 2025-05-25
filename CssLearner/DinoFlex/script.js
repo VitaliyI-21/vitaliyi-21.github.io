@@ -75,7 +75,7 @@ function checkPosition() {
     if (!document.getElementById('next-button')) {
       const next = document.createElement('button');
       next.id = 'next-button';
-      next.textContent = '➡️ Далі';
+      next.textContent = 'Далі';
       next.style.marginTop = '10px';
       next.style.padding = '10px 20px';
       next.style.fontSize = '16px';
