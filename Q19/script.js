@@ -41,6 +41,8 @@ runButton.addEventListener('click', () => {
   const css = cssCode.value;
   preview.srcdoc = `<style>${css}</style>${html}`;
   result.textContent = '';
+  const hintText = document.getElementById('hint-text');
+  if (hintText) hintText.style.display = 'none';
 });
 
 hintButton.addEventListener('click', () => {
@@ -50,7 +52,7 @@ hintButton.addEventListener('click', () => {
     hintText.id = 'hint-text';
     hintText.style.marginTop = '10px';
     hintText.style.color = '#ffd700';
-    hintText.textContent = 'Підсказка: використай .padded { padding: 15px; }';
+    hintText.textContent = 'Підказка: Два теги <p>, між ними тег <hr>.';
     result.insertAdjacentElement('beforebegin', hintText);
   } else {
     hintText.style.display = 'block';
@@ -59,14 +61,16 @@ hintButton.addEventListener('click', () => {
 
 checkButton.addEventListener('click', () => {
   const html = htmlCode.value;
-  const css = cssCode.value;
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, 'text/html');
-  const p = doc.querySelector('p.padded');
-  const paddingMatch = css.match(/\.padded\s*{[^}]*padding\s*:\s*15px/i);
 
-  if (p && paddingMatch) {
+  const paragraphs = doc.querySelectorAll('p');
+  const hr = doc.querySelector('hr');
+
+  if (paragraphs.length === 2 && hr && hr.compareDocumentPosition(paragraphs[0]) & Node.DOCUMENT_POSITION_FOLLOWING &&
+      hr.compareDocumentPosition(paragraphs[1]) & Node.DOCUMENT_POSITION_PRECEDING) {
     result.textContent = 'Правильно!';
+    result.style.color = '#37ff00';
 
     let nextBtn = document.getElementById('next-task-btn');
     if (!nextBtn) {
@@ -83,19 +87,12 @@ checkButton.addEventListener('click', () => {
       checkButton.insertAdjacentElement('afterend', nextBtn);
 
       nextBtn.addEventListener('click', () => {
-        const currentPath = window.location.pathname;
-        const match = currentPath.match(/\/([^\/]+)\/Q(\d+)\.html$/);
-        if (match) {
-          const folder = match[1];
-          const nextNumber = parseInt(match[2]) + 1;
-          window.location.href = `../Q${nextNumber}/Q${nextNumber}.html`;
-        } else {
-          window.location.href = '../Q20/Q20.html';
-        }
+        window.location.href = '../Q40/Q40.html';
       });
     }
   } else {
     result.textContent = 'Спробуй ще раз...';
+    result.style.color = 'red';
     const nextBtn = document.getElementById('next-task-btn');
     if (nextBtn) nextBtn.remove();
   }

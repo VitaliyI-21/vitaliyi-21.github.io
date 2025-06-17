@@ -50,7 +50,7 @@ hintButton.addEventListener('click', () => {
     hintText.id = 'hint-text';
     hintText.style.marginTop = '10px';
     hintText.style.color = '#ffd700';
-    hintText.textContent = 'Підсказка: .responsive { width: 50%; height: 20vh; }';
+    hintText.textContent = 'Підсказка: створи <ul class="tasks"> або <ol class="tasks"> і в CSS напиши .tasks { margin-left: 20px; margin-top: 10px; }';
     result.insertAdjacentElement('beforebegin', hintText);
   } else {
     hintText.style.display = 'block';
@@ -62,11 +62,12 @@ checkButton.addEventListener('click', () => {
   const css = cssCode.value;
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, 'text/html');
-  const div = doc.querySelector('div.responsive');
-  const widthMatch = css.match(/\.responsive\s*{[^}]*width\s*:\s*50%/i);
-  const heightMatch = css.match(/\.responsive\s*{[^}]*height\s*:\s*20vh/i);
+  const list = doc.querySelector('ul.tasks, ol.tasks');
 
-  if (div && widthMatch && heightMatch) {
+  const marginLeftMatch = css.match(/\.tasks\s*{[^}]*margin-left\s*:\s*20px/i);
+  const marginTopMatch = css.match(/\.tasks\s*{[^}]*margin-top\s*:\s*10px/i);
+
+  if (list && marginLeftMatch && marginTopMatch) {
     result.textContent = 'Правильно!';
 
     let nextBtn = document.getElementById('next-task-btn');
@@ -82,7 +83,7 @@ checkButton.addEventListener('click', () => {
       nextBtn.style.borderRadius = '4px';
       nextBtn.style.cursor = 'pointer';
       checkButton.insertAdjacentElement('afterend', nextBtn);
-
+  
       nextBtn.addEventListener('click', () => {
         const currentPath = window.location.pathname;
         const match = currentPath.match(/\/([^\/]+)\/Q(\d+)\.html$/);
@@ -91,7 +92,7 @@ checkButton.addEventListener('click', () => {
           const nextNumber = parseInt(match[2]) + 1;
           window.location.href = `../Q${nextNumber}/Q${nextNumber}.html`;
         } else {
-          window.location.href = '../Q24/Q24.html';
+          window.location.href = '../Q14/Q14.html';
         }
       });
     }

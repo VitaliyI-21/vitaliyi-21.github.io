@@ -41,6 +41,8 @@ runButton.addEventListener('click', () => {
   const css = cssCode.value;
   preview.srcdoc = `<style>${css}</style>${html}`;
   result.textContent = '';
+  const hintText = document.getElementById('hint-text');
+  if (hintText) hintText.style.display = 'none';
 });
 
 hintButton.addEventListener('click', () => {
@@ -50,7 +52,7 @@ hintButton.addEventListener('click', () => {
     hintText.id = 'hint-text';
     hintText.style.marginTop = '10px';
     hintText.style.color = '#ffd700';
-    hintText.textContent = 'Підсказка: використай .info, .note { color: blue; }';
+    hintText.textContent = 'Підказка: Використай тег <u> або CSS: text-decoration: underline.';
     result.insertAdjacentElement('beforebegin', hintText);
   } else {
     hintText.style.display = 'block';
@@ -58,16 +60,19 @@ hintButton.addEventListener('click', () => {
 });
 
 checkButton.addEventListener('click', () => {
-  const html = htmlCode.value;
-  const css = cssCode.value;
+  const html = htmlCode.value.toLowerCase();
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, 'text/html');
-  const info = doc.querySelector('.info');
-  const note = doc.querySelector('.note');
-  const selectorMatch = css.match(/\.info\s*,\s*\.note\s*{[^}]*color\s*:\s*(blue|#00f|#0000ff)/i);
 
-  if (info && note && selectorMatch) {
+  const u = doc.querySelector('u');
+  const span = doc.querySelector('span');
+  const underlinedText = u?.textContent?.trim().toLowerCase() === 'це важливо' ||
+                         (span?.textContent?.trim().toLowerCase() === 'це важливо' &&
+                          span?.getAttribute('style')?.includes('underline'));
+
+  if (underlinedText) {
     result.textContent = 'Правильно!';
+    result.style.color = '#37ff00';
 
     let nextBtn = document.getElementById('next-task-btn');
     if (!nextBtn) {
@@ -84,19 +89,12 @@ checkButton.addEventListener('click', () => {
       checkButton.insertAdjacentElement('afterend', nextBtn);
 
       nextBtn.addEventListener('click', () => {
-        const currentPath = window.location.pathname;
-        const match = currentPath.match(/\/([^\/]+)\/Q(\d+)\.html$/);
-        if (match) {
-          const folder = match[1];
-          const nextNumber = parseInt(match[2]) + 1;
-          window.location.href = `../Q${nextNumber}/Q${nextNumber}.html`;
-        } else {
-          window.location.href = '../Q21/Q21.html';
-        }
+        alert('Це останнє завдання з цієї серії!');
       });
     }
   } else {
     result.textContent = 'Спробуй ще раз...';
+    result.style.color = 'red';
     const nextBtn = document.getElementById('next-task-btn');
     if (nextBtn) nextBtn.remove();
   }

@@ -50,7 +50,7 @@ hintButton.addEventListener('click', () => {
     hintText.id = 'hint-text';
     hintText.style.marginTop = '10px';
     hintText.style.color = '#ffd700';
-    hintText.textContent = 'Підсказка: використай li:nth-child(2) { color: red; }';
+    hintText.textContent = 'Підсказка: створи <div class="box">...</div> і в CSS напиши .box { width: 200px; height: 100px; }';
     result.insertAdjacentElement('beforebegin', hintText);
   } else {
     hintText.style.display = 'block';
@@ -62,11 +62,12 @@ checkButton.addEventListener('click', () => {
   const css = cssCode.value;
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, 'text/html');
-  const ul = doc.querySelector('ul');
-  const hasFourItems = ul && ul.querySelectorAll('li').length === 4;
-  const nthMatch = css.match(/li\s*:\s*nth-child\(2\)\s*{[^}]*color\s*:\s*(red|#f00|#ff0000)/i);
+  const div = doc.querySelector('div.box');
 
-  if (hasFourItems && nthMatch) {
+  const widthMatch = css.match(/\.box\s*{[^}]*width\s*:\s*200px/i);
+  const heightMatch = css.match(/\.box\s*{[^}]*height\s*:\s*100px/i);
+
+  if (div && widthMatch && heightMatch) {
     result.textContent = 'Правильно!';
 
     let nextBtn = document.getElementById('next-task-btn');
@@ -82,7 +83,7 @@ checkButton.addEventListener('click', () => {
       nextBtn.style.borderRadius = '4px';
       nextBtn.style.cursor = 'pointer';
       checkButton.insertAdjacentElement('afterend', nextBtn);
-
+  
       nextBtn.addEventListener('click', () => {
         const currentPath = window.location.pathname;
         const match = currentPath.match(/\/([^\/]+)\/Q(\d+)\.html$/);
@@ -91,7 +92,7 @@ checkButton.addEventListener('click', () => {
           const nextNumber = parseInt(match[2]) + 1;
           window.location.href = `../Q${nextNumber}/Q${nextNumber}.html`;
         } else {
-          window.location.href = '../Q23/Q23.html';
+          window.location.href = '../Q13/Q13.html';
         }
       });
     }

@@ -41,6 +41,8 @@ runButton.addEventListener('click', () => {
   const css = cssCode.value;
   preview.srcdoc = `<style>${css}</style>${html}`;
   result.textContent = '';
+  const hintText = document.getElementById('hint-text');
+  if (hintText) hintText.style.display = 'none';
 });
 
 hintButton.addEventListener('click', () => {
@@ -50,7 +52,7 @@ hintButton.addEventListener('click', () => {
     hintText.id = 'hint-text';
     hintText.style.marginTop = '10px';
     hintText.style.color = '#ffd700';
-    hintText.textContent = 'Підсказка: створи <ul class="tasks"> або <ol class="tasks"> і в CSS напиши .tasks { margin-left: 20px; margin-top: 10px; }';
+    hintText.textContent = 'Підказка: Використай тег <p> з <b> або <strong>.';
     result.insertAdjacentElement('beforebegin', hintText);
   } else {
     hintText.style.display = 'block';
@@ -59,16 +61,15 @@ hintButton.addEventListener('click', () => {
 
 checkButton.addEventListener('click', () => {
   const html = htmlCode.value;
-  const css = cssCode.value;
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, 'text/html');
-  const list = doc.querySelector('ul.tasks, ol.tasks');
 
-  const marginLeftMatch = css.match(/\.tasks\s*{[^}]*margin-left\s*:\s*20px/i);
-  const marginTopMatch = css.match(/\.tasks\s*{[^}]*margin-top\s*:\s*10px/i);
+  const p = doc.querySelector('p');
+  const bold = p ? p.querySelector('b, strong') : null;
 
-  if (list && marginLeftMatch && marginTopMatch) {
+  if (p && bold && bold.textContent.trim().toLowerCase() === 'увага!') {
     result.textContent = 'Правильно!';
+    result.style.color = '#37ff00';
 
     let nextBtn = document.getElementById('next-task-btn');
     if (!nextBtn) {
@@ -83,21 +84,14 @@ checkButton.addEventListener('click', () => {
       nextBtn.style.borderRadius = '4px';
       nextBtn.style.cursor = 'pointer';
       checkButton.insertAdjacentElement('afterend', nextBtn);
-  
+
       nextBtn.addEventListener('click', () => {
-        const currentPath = window.location.pathname;
-        const match = currentPath.match(/\/([^\/]+)\/Q(\d+)\.html$/);
-        if (match) {
-          const folder = match[1];
-          const nextNumber = parseInt(match[2]) + 1;
-          window.location.href = `../Q${nextNumber}/Q${nextNumber}.html`;
-        } else {
-          window.location.href = '../Q14/Q14.html';
-        }
+        window.location.href = '../Q34/Q34.html';
       });
     }
   } else {
     result.textContent = 'Спробуй ще раз...';
+    result.style.color = 'red';
     const nextBtn = document.getElementById('next-task-btn');
     if (nextBtn) nextBtn.remove();
   }

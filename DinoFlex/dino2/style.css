@@ -1,0 +1,178 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #121212;
+  padding: 10px 20px;
+  position: relative;
+}
+
+.menu-button {
+  position: absolute;
+  left: 20px;
+  font-size: 24px;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.logo {
+  height: 40px;
+  width: auto;
+}
+
+.logo-text {
+  font-size: 22px;
+  font-weight: 600;
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+}
+
+.menu-panel {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 250px;
+  height: 100%;
+  background-color: #1e1e1e;
+  border-right: 1px solid #444;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  transition: left 0.3s ease-in-out;
+  overflow-y: auto;
+  scrollbar-color: #666 #1e1e1e;
+}
+
+.menu-panel.open {
+  left: 0;
+}
+
+.menu-panel a {
+  color: white;
+  text-decoration: none;
+  margin: 5px 0;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.menu-panel a:hover {
+  background-color: #2a2a2a;
+}
+  
+  .logo-text {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .page-content {
+    display: flex;
+    flex: 1;
+    height: calc(100vh - 60px);
+    width: 100%;
+  }
+  
+  .left-panel, .right-panel {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+  }
+  
+  .left-panel {
+    background-color: #5D5D81;
+    color: white;
+    padding: 20px;
+    justify-content: space-between;
+  }
+  
+  .right-panel {
+    background-color: #6C7D47;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
+  
+  .instructions {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  
+  .instructions code {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-weight: bold;
+  }
+  
+  .editor-box {
+    background-color: #eee;
+    padding: 10px;
+    border-radius: 4px;
+    color: #000;
+    font-family: monospace;
+  }
+  
+  .code-input {
+    width: 90%;
+    height: 80px;
+    font-family: monospace;
+    font-size: 16px;
+    border: none;
+    padding: 10px;
+    margin: 10px 0;
+    resize: none;
+    background: #fff;
+  }
+  
+  .playground {
+    width: 90%;
+    height: 300px;
+    background-color: #96A13A;
+    position: relative;
+    display: block;
+    padding: 10px;
+  }
+  
+  .dino {
+    width: 80px;
+    height: 80px;
+    background-image: url('dino.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  .food {
+    width: 60px;
+    height: 60px;
+    background-image: url('schnitzel.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+  

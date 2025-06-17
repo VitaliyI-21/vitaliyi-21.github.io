@@ -41,6 +41,8 @@ runButton.addEventListener('click', () => {
   const css = cssCode.value;
   preview.srcdoc = `<style>${css}</style>${html}`;
   result.textContent = '';
+  const hintText = document.getElementById('hint-text');
+  if (hintText) hintText.style.display = 'none';
 });
 
 hintButton.addEventListener('click', () => {
@@ -50,7 +52,7 @@ hintButton.addEventListener('click', () => {
     hintText.id = 'hint-text';
     hintText.style.marginTop = '10px';
     hintText.style.color = '#ffd700';
-    hintText.textContent = 'Підсказка: створи <p class="note">...</p> і в CSS напиши .note { font-style: italic; }';
+    hintText.textContent = 'Підказка: Використай тег <h3> з текстом "Це підзаголовок".';
     result.insertAdjacentElement('beforebegin', hintText);
   } else {
     hintText.style.display = 'block';
@@ -59,14 +61,13 @@ hintButton.addEventListener('click', () => {
 
 checkButton.addEventListener('click', () => {
   const html = htmlCode.value;
-  const css = cssCode.value;
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, 'text/html');
-  const p = doc.querySelector('p.note');
-  const italicMatch = css.match(/\.note\s*{[^}]*font-style\s*:\s*italic/i);
+  const h3 = doc.querySelector('h3');
 
-  if (p && italicMatch) {
+  if (h3 && h3.textContent.trim().toLowerCase() === 'це підзаголовок') {
     result.textContent = 'Правильно!';
+    result.style.color = '#37ff00';
 
     let nextBtn = document.getElementById('next-task-btn');
     if (!nextBtn) {
@@ -82,21 +83,13 @@ checkButton.addEventListener('click', () => {
       nextBtn.style.cursor = 'pointer';
       checkButton.insertAdjacentElement('afterend', nextBtn);
 
-      
       nextBtn.addEventListener('click', () => {
-        const currentPath = window.location.pathname;
-        const match = currentPath.match(/\/([^\/]+)\/Q(\d+)\.html$/);
-        if (match) {
-          const folder = match[1];
-          const nextNumber = parseInt(match[2]) + 1;
-          window.location.href = `../Q${nextNumber}/Q${nextNumber}.html`;
-        } else {
-          window.location.href = '../Q12/Q12.html';
-        }
+        window.location.href = '../Q32/Q32.html';
       });
     }
   } else {
     result.textContent = 'Спробуй ще раз...';
+    result.style.color = 'red';
     const nextBtn = document.getElementById('next-task-btn');
     if (nextBtn) nextBtn.remove();
   }

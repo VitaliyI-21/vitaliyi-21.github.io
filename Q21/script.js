@@ -50,7 +50,7 @@ hintButton.addEventListener('click', () => {
     hintText.id = 'hint-text';
     hintText.style.marginTop = '10px';
     hintText.style.color = '#ffd700';
-    hintText.textContent = 'Підсказка: .flexbox { display: flex; justify-content: center; }';
+    hintText.textContent = 'Підсказка: створи <p class="note">...</p> і в CSS напиши .note { font-style: italic; }';
     result.insertAdjacentElement('beforebegin', hintText);
   } else {
     hintText.style.display = 'block';
@@ -62,12 +62,10 @@ checkButton.addEventListener('click', () => {
   const css = cssCode.value;
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, 'text/html');
-  const container = doc.querySelector('div.flexbox');
-  const hasChildren = container && container.querySelectorAll('div').length >= 2;
-  const displayMatch = css.match(/\.flexbox\s*{[^}]*display\s*:\s*flex/i);
-  const justifyMatch = css.match(/\.flexbox\s*{[^}]*justify-content\s*:\s*center/i);
+  const p = doc.querySelector('p.note');
+  const italicMatch = css.match(/\.note\s*{[^}]*font-style\s*:\s*italic/i);
 
-  if (container && hasChildren && displayMatch && justifyMatch) {
+  if (p && italicMatch) {
     result.textContent = 'Правильно!';
 
     let nextBtn = document.getElementById('next-task-btn');
@@ -84,6 +82,7 @@ checkButton.addEventListener('click', () => {
       nextBtn.style.cursor = 'pointer';
       checkButton.insertAdjacentElement('afterend', nextBtn);
 
+      
       nextBtn.addEventListener('click', () => {
         const currentPath = window.location.pathname;
         const match = currentPath.match(/\/([^\/]+)\/Q(\d+)\.html$/);
@@ -92,7 +91,7 @@ checkButton.addEventListener('click', () => {
           const nextNumber = parseInt(match[2]) + 1;
           window.location.href = `../Q${nextNumber}/Q${nextNumber}.html`;
         } else {
-          window.location.href = '../Q22/Q22.html';
+          window.location.href = '../Q12/Q12.html';
         }
       });
     }
