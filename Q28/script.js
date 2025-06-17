@@ -86,7 +86,7 @@ checkButton.addEventListener('click', () => {
       checkButton.insertAdjacentElement('afterend', nextBtn);
 
       nextBtn.addEventListener('click', () => {
-        window.location.href = '../Q46/Q46.html';
+        window.location.href = '../Q29/Q29.html';
       });
     }
   } else {
