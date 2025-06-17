@@ -90,7 +90,7 @@ checkButton.addEventListener('click', () => {
           const nextNumber = parseInt(match[2]) + 1;
           window.location.href = `../Q${nextNumber}/Q${nextNumber}.html`;
         } else {
-          window.location.href = '../Q26/Q26.html';
+          window.location.href = '../Q41/Q41.html';
         }
       });
     }
