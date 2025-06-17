@@ -52,7 +52,7 @@ hintButton.addEventListener('click', () => {
     hintText.id = 'hint-text';
     hintText.style.marginTop = '10px';
     hintText.style.color = '#ffd700';
-    hintText.textContent = 'Підказка: Використай клас .custom-list з властивостями color та padding-left.';
+    hintText.textContent = 'Підказка: Використай text-align: center для .centered-title';
     result.insertAdjacentElement('beforebegin', hintText);
   } else {
     hintText.style.display = 'block';
@@ -63,11 +63,10 @@ checkButton.addEventListener('click', () => {
   const html = htmlCode.value.toLowerCase();
   const css = cssCode.value.toLowerCase();
 
-  const hasUl = html.includes('<ul') && html.includes('class="custom-list"');
-  const hasPadding = css.includes('.custom-list') && css.includes('padding-left') && css.includes('20px');
-  const hasColor = css.includes('color') && (css.includes('red') || css.includes('#ff0000'));
+  const hasH2 = html.includes('<h2') && html.includes('class="centered-title"');
+  const hasTextAlign = css.includes('.centered-title') && css.includes('text-align') && css.includes('center');
 
-  if (hasUl && hasPadding && hasColor) {
+  if (hasH2 && hasTextAlign) {
     result.textContent = 'Правильно!';
     result.style.color = '#37ff00';
 
@@ -86,7 +85,7 @@ checkButton.addEventListener('click', () => {
       checkButton.insertAdjacentElement('afterend', nextBtn);
 
       nextBtn.addEventListener('click', () => {
-        window.location.href = '../Q43/Q43.html';
+        window.location.href = '../Q44/Q44.html';
       });
     }
   } else {

@@ -50,7 +50,7 @@ hintButton.addEventListener('click', () => {
     hintText.id = 'hint-text';
     hintText.style.marginTop = '10px';
     hintText.style.color = '#ffd700';
-    hintText.textContent = 'Підсказка: .hidden { display: none; }';
+    hintText.textContent = 'Підсказка: створи <button class="btn">...</button> і в CSS напиши .btn { background-color: green; color: white; }';
     result.insertAdjacentElement('beforebegin', hintText);
   } else {
     hintText.style.display = 'block';
@@ -62,10 +62,12 @@ checkButton.addEventListener('click', () => {
   const css = cssCode.value;
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, 'text/html');
-  const div = doc.querySelector('div.hidden');
-  const displayMatch = css.match(/\.hidden\s*{[^}]*display\s*:\s*none/i);
+  const button = doc.querySelector('button.btn');
 
-  if (div && displayMatch) {
+  const backgroundMatch = css.match(/\.btn\s*{[^}]*background(-color)?\s*:\s*(green|#0f0|#00ff00)/i);
+  const colorMatch = css.match(/\.btn\s*{[^}]*color\s*:\s*white/i);
+
+  if (button && backgroundMatch && colorMatch) {
     result.textContent = 'Правильно!';
 
     let nextBtn = document.getElementById('next-task-btn');
@@ -81,7 +83,7 @@ checkButton.addEventListener('click', () => {
       nextBtn.style.borderRadius = '4px';
       nextBtn.style.cursor = 'pointer';
       checkButton.insertAdjacentElement('afterend', nextBtn);
-
+  
       nextBtn.addEventListener('click', () => {
         const currentPath = window.location.pathname;
         const match = currentPath.match(/\/([^\/]+)\/Q(\d+)\.html$/);
@@ -90,7 +92,7 @@ checkButton.addEventListener('click', () => {
           const nextNumber = parseInt(match[2]) + 1;
           window.location.href = `../Q${nextNumber}/Q${nextNumber}.html`;
         } else {
-          window.location.href = '../Q25/Q25.html';
+          window.location.href = '../Q15/Q15.html';
         }
       });
     }

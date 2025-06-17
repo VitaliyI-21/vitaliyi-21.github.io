@@ -50,7 +50,7 @@ hintButton.addEventListener('click', () => {
     hintText.id = 'hint-text';
     hintText.style.marginTop = '10px';
     hintText.style.color = '#ffd700';
-    hintText.textContent = 'Підсказка: .animated { transition: all 0.3s ease; } .animated:hover { width: ..., height: ... }';
+    hintText.textContent = 'Підсказка: .bordered { border: 2px solid blue; }';
     result.insertAdjacentElement('beforebegin', hintText);
   } else {
     hintText.style.display = 'block';
@@ -62,11 +62,11 @@ checkButton.addEventListener('click', () => {
   const css = cssCode.value;
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, 'text/html');
-  const block = doc.querySelector('div.animated');
-  const transitionMatch = css.match(/\.animated\s*{[^}]*transition\s*:\s*all\s+0\.3s\s+ease/i);
-  const hoverMatch = css.match(/\.animated\s*:\s*hover\s*{[^}]*((width|height)\s*:\s*[^;]+;?){2}/i);
+  const div = doc.querySelector('div.bordered');
 
-  if (block && transitionMatch && hoverMatch) {
+  const borderMatch = css.match(/\.bordered\s*{[^}]*border\s*:\s*2px\s+solid\s+(blue|#00f|#0000ff)/i);
+
+  if (div && borderMatch) {
     result.textContent = 'Правильно!';
 
     let nextBtn = document.getElementById('next-task-btn');
@@ -82,7 +82,7 @@ checkButton.addEventListener('click', () => {
       nextBtn.style.borderRadius = '4px';
       nextBtn.style.cursor = 'pointer';
       checkButton.insertAdjacentElement('afterend', nextBtn);
-
+  
       nextBtn.addEventListener('click', () => {
         const currentPath = window.location.pathname;
         const match = currentPath.match(/\/([^\/]+)\/Q(\d+)\.html$/);
@@ -91,7 +91,7 @@ checkButton.addEventListener('click', () => {
           const nextNumber = parseInt(match[2]) + 1;
           window.location.href = `../Q${nextNumber}/Q${nextNumber}.html`;
         } else {
-          window.location.href = '../Main.html';
+          window.location.href = '../Q17/Q17.html';
         }
       });
     }

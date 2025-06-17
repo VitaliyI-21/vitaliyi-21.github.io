@@ -50,7 +50,7 @@ hintButton.addEventListener('click', () => {
     hintText.id = 'hint-text';
     hintText.style.marginTop = '10px';
     hintText.style.color = '#ffd700';
-    hintText.textContent = 'Підсказка: .pressable:active { background-color: yellow; }';
+    hintText.textContent = 'Підсказка: створи <h2 class="title">...</h2> і в CSS напиши .title { text-align: center; }';
     result.insertAdjacentElement('beforebegin', hintText);
   } else {
     hintText.style.display = 'block';
@@ -62,10 +62,11 @@ checkButton.addEventListener('click', () => {
   const css = cssCode.value;
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, 'text/html');
-  const button = doc.querySelector('button.pressable');
-  const activeMatch = css.match(/\.pressable\s*:\s*active\s*{[^}]*background-color\s*:\s*(yellow|#ff0|#ffff00)/i);
+  const h2 = doc.querySelector('h2.title');
 
-  if (button && activeMatch) {
+  const alignMatch = css.match(/\.title\s*{[^}]*text-align\s*:\s*center/i);
+
+  if (h2 && alignMatch) {
     result.textContent = 'Правильно!';
 
     let nextBtn = document.getElementById('next-task-btn');
@@ -81,7 +82,7 @@ checkButton.addEventListener('click', () => {
       nextBtn.style.borderRadius = '4px';
       nextBtn.style.cursor = 'pointer';
       checkButton.insertAdjacentElement('afterend', nextBtn);
-
+  
       nextBtn.addEventListener('click', () => {
         const currentPath = window.location.pathname;
         const match = currentPath.match(/\/([^\/]+)\/Q(\d+)\.html$/);
@@ -90,7 +91,7 @@ checkButton.addEventListener('click', () => {
           const nextNumber = parseInt(match[2]) + 1;
           window.location.href = `../Q${nextNumber}/Q${nextNumber}.html`;
         } else {
-          window.location.href = '../Q30/Q30.html';
+          window.location.href = '../Q16/Q16.html';
         }
       });
     }

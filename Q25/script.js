@@ -41,6 +41,8 @@ runButton.addEventListener('click', () => {
   const css = cssCode.value;
   preview.srcdoc = `<style>${css}</style>${html}`;
   result.textContent = '';
+  const hintText = document.getElementById('hint-text');
+  if (hintText) hintText.style.display = 'none';
 });
 
 hintButton.addEventListener('click', () => {
@@ -50,7 +52,7 @@ hintButton.addEventListener('click', () => {
     hintText.id = 'hint-text';
     hintText.style.marginTop = '10px';
     hintText.style.color = '#ffd700';
-    hintText.textContent = 'Підсказка: .shadowed { box-shadow: 2px 2px 5px gray; }';
+    hintText.textContent = 'Підказка: Використай <div class="highlighted"> і властивості background-color та border.';
     result.insertAdjacentElement('beforebegin', hintText);
   } else {
     hintText.style.display = 'block';
@@ -58,15 +60,16 @@ hintButton.addEventListener('click', () => {
 });
 
 checkButton.addEventListener('click', () => {
-  const html = htmlCode.value;
-  const css = cssCode.value;
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(html, 'text/html');
-  const div = doc.querySelector('div.shadowed');
-  const shadowMatch = css.match(/\.shadowed\s*{[^}]*box-shadow\s*:\s*2px\s+2px\s+5px\s+gray/i);
+  const html = htmlCode.value.toLowerCase();
+  const css = cssCode.value.toLowerCase();
 
-  if (div && shadowMatch) {
+  const hasDiv = html.includes('<div') && html.includes('class="highlighted"');
+  const hasYellow = css.includes('.highlighted') && css.includes('background-color') && css.includes('yellow');
+  const hasBorder = css.includes('border') && (css.includes('2px') && (css.includes('black') || css.includes('#000')));
+
+  if (hasDiv && hasYellow && hasBorder) {
     result.textContent = 'Правильно!';
+    result.style.color = '#37ff00';
 
     let nextBtn = document.getElementById('next-task-btn');
     if (!nextBtn) {
@@ -83,19 +86,12 @@ checkButton.addEventListener('click', () => {
       checkButton.insertAdjacentElement('afterend', nextBtn);
 
       nextBtn.addEventListener('click', () => {
-        const currentPath = window.location.pathname;
-        const match = currentPath.match(/\/([^\/]+)\/Q(\d+)\.html$/);
-        if (match) {
-          const folder = match[1];
-          const nextNumber = parseInt(match[2]) + 1;
-          window.location.href = `../Q${nextNumber}/Q${nextNumber}.html`;
-        } else {
-          window.location.href = '../Q26/Q26.html';
-        }
+        window.location.href = '../Q42/Q42.html';
       });
     }
   } else {
     result.textContent = 'Спробуй ще раз...';
+    result.style.color = 'red';
     const nextBtn = document.getElementById('next-task-btn');
     if (nextBtn) nextBtn.remove();
   }

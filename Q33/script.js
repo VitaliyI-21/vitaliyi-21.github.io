@@ -41,8 +41,6 @@ runButton.addEventListener('click', () => {
   const css = cssCode.value;
   preview.srcdoc = `<style>${css}</style>${html}`;
   result.textContent = '';
-  const hintText = document.getElementById('hint-text');
-  if (hintText) hintText.style.display = 'none';
 });
 
 hintButton.addEventListener('click', () => {
@@ -52,7 +50,7 @@ hintButton.addEventListener('click', () => {
     hintText.id = 'hint-text';
     hintText.style.marginTop = '10px';
     hintText.style.color = '#ffd700';
-    hintText.textContent = 'Підказка: Використай клас .custom-list з властивостями color та padding-left.';
+    hintText.textContent = 'Підсказка: використай .rounded { border-radius: 10px; }';
     result.insertAdjacentElement('beforebegin', hintText);
   } else {
     hintText.style.display = 'block';
@@ -60,16 +58,15 @@ hintButton.addEventListener('click', () => {
 });
 
 checkButton.addEventListener('click', () => {
-  const html = htmlCode.value.toLowerCase();
-  const css = cssCode.value.toLowerCase();
+  const html = htmlCode.value;
+  const css = cssCode.value;
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, 'text/html');
+  const div = doc.querySelector('div.rounded');
+  const radiusMatch = css.match(/\.rounded\s*{[^}]*border-radius\s*:\s*10px/i);
 
-  const hasUl = html.includes('<ul') && html.includes('class="custom-list"');
-  const hasPadding = css.includes('.custom-list') && css.includes('padding-left') && css.includes('20px');
-  const hasColor = css.includes('color') && (css.includes('red') || css.includes('#ff0000'));
-
-  if (hasUl && hasPadding && hasColor) {
+  if (div && radiusMatch) {
     result.textContent = 'Правильно!';
-    result.style.color = '#37ff00';
 
     let nextBtn = document.getElementById('next-task-btn');
     if (!nextBtn) {
@@ -84,14 +81,21 @@ checkButton.addEventListener('click', () => {
       nextBtn.style.borderRadius = '4px';
       nextBtn.style.cursor = 'pointer';
       checkButton.insertAdjacentElement('afterend', nextBtn);
-
+  
       nextBtn.addEventListener('click', () => {
-        window.location.href = '../Q43/Q43.html';
+        const currentPath = window.location.pathname;
+        const match = currentPath.match(/\/([^\/]+)\/Q(\d+)\.html$/);
+        if (match) {
+          const folder = match[1];
+          const nextNumber = parseInt(match[2]) + 1;
+          window.location.href = `../Q${nextNumber}/Q${nextNumber}.html`;
+        } else {
+          window.location.href = '../Q19/Q19.html';
+        }
       });
     }
   } else {
     result.textContent = 'Спробуй ще раз...';
-    result.style.color = 'red';
     const nextBtn = document.getElementById('next-task-btn');
     if (nextBtn) nextBtn.remove();
   }
