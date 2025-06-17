@@ -121,7 +121,7 @@ function checkPosition() {
       next.style.cursor = 'pointer';
 
       next.addEventListener('click', () => {
-        window.location.href = 'next-level.html';
+        window.location.href = '../dino3/dino3.html';
       });
 
       document.querySelector('.left-panel').appendChild(next);
